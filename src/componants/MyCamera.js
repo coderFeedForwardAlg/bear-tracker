@@ -1,6 +1,8 @@
 
 import React, { useRef, useState,lazy, Suspense } from 'react';
-
+import { getFirestore } from "@firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { collection, addDoc } from "firebase/firestore";
 
 import Webcam from 'react-webcam';
 import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
@@ -12,6 +14,19 @@ import ButLink from './ButLink';
 
 
 export default function MyCamera({isCamera, setIsCamera} ) {
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyDLcXMgEYDX1ulzCf1uLisew0iqeDSprgE",
+    authDomain: "bear-tracker-60851.firebaseapp.com",
+    projectId: "bear-tracker-60851",
+    storageBucket: "bear-tracker-60851.appspot.com",
+    messagingSenderId: "740777657902",
+    appId: "1:740777657902:web:8bab2e699a7bf39a0201bf",
+    measurementId: "G-8K87EVV8P3"
+};
+const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+const locatCollection = collection(db, "locations");
     const storage = getStorage();
     const navigate = useNavigate();
     const [premMess, setPremMess] = useState("");
@@ -23,6 +38,8 @@ export default function MyCamera({isCamera, setIsCamera} ) {
       facingMode: { exact: "environment" },
       advanced: [{zoom: zoomFacotor/100}]
     };
+
+    const [notes, setNotes] = useState("");
 
       const uploadImageToStorage = async (imageData) => {
         const fileName = 'image-bear/' + Date.now() + '.jpeg'; // Generate a unique filename
@@ -46,6 +63,15 @@ export default function MyCamera({isCamera, setIsCamera} ) {
         } catch (error) {
           console.error('Error uploading image:', error);
         }
+
+        await navigator.geolocation.getCurrentPosition((position) => {
+          addDoc(locatCollection, {
+              "latatude": position.coords.latitude,
+              "longitude": position.coords.longitude,
+              "image_name": fileName,
+              "notes" : notes
+          });
+        });
       };
       
       
@@ -64,10 +90,13 @@ export default function MyCamera({isCamera, setIsCamera} ) {
       }
     
   };
+
+  
   const save = async () => {
     try{
       
       await uploadImageToStorage(capturedImage);
+      
       navigate("/");
       
     }catch(error){
@@ -103,6 +132,13 @@ export default function MyCamera({isCamera, setIsCamera} ) {
         {showCam && <Button handelClick={() => setShowCam(false)} text="Retake Photo"/> }
         {showCam && <ButLink rout="/" text="Cancel"/> } 
       </div>
+      <form onSubmit={handleSubmit}>
+                    <label><h2>Any notes?</h2></label>
+                    <input placeholder="Notes here" onChange={(e)=>{
+                        setNotes(e.target.value);
+                    }}/>
+                 </form>
+                 
       </Suspense>
       
         </div>

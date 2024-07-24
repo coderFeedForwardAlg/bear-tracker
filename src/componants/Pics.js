@@ -8,7 +8,7 @@ export default function Pics({setIsPics}) {
     const storage = getStorage();
 
 
-    const imagesRef = ref(storage, "image");
+    const imagesRef = ref(storage, "image-bear");
 
 
     const fetchImages = async () => {

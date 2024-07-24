@@ -12,21 +12,21 @@ import Pics from './componants/Pics';
 import MainCon from './componants/MainCon';
 import { Routes, Route } from 'react-router-dom';
 
-
+import { BrowserRouter } from 'react-router-dom';
 
 
 
 export default function App() {
-  const firebaseConfig = {
-    apiKey: "AIzaSyAs5ih_P5k9uOQxl-QHxy82dxfS4Ke5oAo",
-    authDomain: "techforstartups-72eb2.firebaseapp.com",
-    projectId: "techforstartups-72eb2",
-    storageBucket: "techforstartups-72eb2.appspot.com",
-    messagingSenderId: "704406289150",
-    appId: "1:704406289150:web:1505eb31fb406f821783af",
-    measurementId: "G-4XHFHFNTKK"
-  };
   
+  const firebaseConfig = {
+    apiKey: "AIzaSyDLcXMgEYDX1ulzCf1uLisew0iqeDSprgE",
+    authDomain: "bear-tracker-60851.firebaseapp.com",
+    projectId: "bear-tracker-60851",
+    storageBucket: "bear-tracker-60851.appspot.com",
+    messagingSenderId: "740777657902",
+    appId: "1:740777657902:web:8bab2e699a7bf39a0201bf",
+    measurementId: "G-8K87EVV8P3"
+};
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
@@ -35,11 +35,13 @@ export default function App() {
   return (
 
 
+      <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainCon/>} />
-        <Route path="/pics" element={<Pics/>} />
-        <Route path="/cam" element={<MyCamera/>} />
-      </Routes>
+          <Route path="/" element={<MainCon/>} />
+          <Route path="/pics" element={<Pics/>} />
+          <Route path="/cam" element={<MyCamera/>} />
+        </Routes>
+      </BrowserRouter>
 
   );
 }
