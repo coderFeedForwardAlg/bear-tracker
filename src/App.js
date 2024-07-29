@@ -34,14 +34,15 @@ export default function App() {
 
   return (
 
-
-      <BrowserRouter>
-      <Routes>
-          <Route path="/" element={<MainCon/>} />
-          <Route path="/pics" element={<Pics/>} />
-          <Route path="/cam" element={<MyCamera/>} />
-        </Routes>
-      </BrowserRouter>
+      <div style={{height: '100vh', backgroundColor: '#223300'}}>
+        <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<MainCon/>} />
+            <Route path="/pics" element={<Pics/>} />
+            <Route path="/cam" element={<MyCamera/>} />
+          </Routes>
+        </BrowserRouter>
+      </div>
 
   );
 }

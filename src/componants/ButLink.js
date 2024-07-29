@@ -16,6 +16,7 @@ export default function ButLink(props) {
 const styles = {
     button: {
         display: 'flex',
+        textDecoration: 'none',
         justifyContent: 'center',
         backgroundColor: 'brown',
         border: "3px solid black",

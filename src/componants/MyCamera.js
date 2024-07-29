@@ -6,7 +6,6 @@ import { collection, addDoc } from "firebase/firestore";
 
 import Webcam from 'react-webcam';
 import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-// import { Storage } from '@google-cloud/storage';
 import { Buffer } from 'buffer';
 import  Button  from './Button';
 import { useNavigate } from "react-router-dom";
@@ -26,7 +25,7 @@ export default function MyCamera({isCamera, setIsCamera} ) {
 };
 const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-const locatCollection = collection(db, "locations");
+  const locatCollection = collection(db, "locations");
     const storage = getStorage();
     const navigate = useNavigate();
     const [premMess, setPremMess] = useState("");
@@ -132,12 +131,12 @@ const locatCollection = collection(db, "locations");
         {showCam && <Button handelClick={() => setShowCam(false)} text="Retake Photo"/> }
         {showCam && <ButLink rout="/" text="Cancel"/> } 
       </div>
-      <form onSubmit={handleSubmit}>
+      {showCam &&<form>
                     <label><h2>Any notes?</h2></label>
                     <input placeholder="Notes here" onChange={(e)=>{
                         setNotes(e.target.value);
                     }}/>
-                 </form>
+                 </form>}
                  
       </Suspense>
       
