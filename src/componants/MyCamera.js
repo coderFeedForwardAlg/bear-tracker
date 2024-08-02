@@ -93,16 +93,11 @@ const app = initializeApp(firebaseConfig);
   
   const save = async () => {
     try{
-      
       await uploadImageToStorage(capturedImage);
-      
       navigate("/");
-      
     }catch(error){
         console.error('Error uploading image:', error);
     }
-
-    
   }
 
 
